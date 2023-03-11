@@ -1,0 +1,24 @@
+{
+  "name": "node.js-lab3",
+  "version": "1.0.0",
+  "description": "Лабораторна робота №3 студенток групи ІП-04, Легенької Юлії, Васильєвої Марини, Саніної Анастасії.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/julikss/node.js-lab3.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/julikss/node.js-lab3/issues"
+  },
+  "homepage": "https://github.com/julikss/node.js-lab3#readme",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "nodemon": "^2.0.21"
+  }
+}
