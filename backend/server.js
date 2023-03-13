@@ -8,15 +8,15 @@ let keywords = require('./storage/keywords');
 app.set('view engine', 'ejs');
 
 app.get('/authors', (req, res) => {
-  res.render('authorEntity', {authors: authors});
+  res.render('authorEntity', {entityArray: authors});
 })
 
 app.get('/bookNames', (req, res) => {
-  res.render('bookNameEntity', {bookNames: bookNames});
+  res.render('bookNameEntity', {entityArray: bookNames});
 })
 
 app.get('/keywords', (req, res) => {
-  res.render('keywordEntity', {keywords: keywords});
+  res.render('keywordEntity', {entityArray: keywords});
 })
 
 app.listen(port, () => {

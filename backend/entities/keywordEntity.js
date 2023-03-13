@@ -1,7 +1,7 @@
 class Keyword {
-  constructor(id, keyword) {
+  constructor(id, value) {
     this.id = id;
-    this.keyword = keyword;
+    this.value = value;
   }
 }
 
