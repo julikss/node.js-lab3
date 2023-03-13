@@ -1,6 +1,8 @@
-class KeyWord {
-  constructor(id, keyword) {
+class Keyword {
+  constructor(id, value) {
     this.id = id;
-    this.keyword = keyword;
+    this.value = value;
   }
 }
+
+module.exports = Keyword;
