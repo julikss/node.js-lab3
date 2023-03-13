@@ -4,3 +4,5 @@ class BookName {
     this.name = name;
   }
 }
+
+module.exports = BookName;

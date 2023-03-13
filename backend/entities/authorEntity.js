@@ -4,3 +4,5 @@ class Author {
     this.name = name;
   }
 }
+
+module.exports = Author;
