@@ -1,7 +1,7 @@
 <script>
 
-  const deleteElement = async (el) => {
-    fetch(`/entity/delete/${el}`, {
+  const deleteElement = async (name, el) => {
+    fetch(`/entity/delete/${name}/${el}`, {
       method: "DELETE",
       headers: {
       'Content-Type': 'application/json'

@@ -1,16 +1,19 @@
 const fs = require('fs');
-let authors = require('./storage/authors');
+let authors = require('./storage/authors.json');
+let bookNames = require('./storage/bookNames.json');
+let keywords = require('./storage/keywords.json');
 
 const deleteAuthor = (req, res) => {
   try {
-    const { id } = req.params;
-    const filtered = authors.filter(el => el.id != id);
+    const { name, id } = req.params;
+    const filtered = require(`./storage/${name}.json`).filter(el => el.id != id);
 
-    /*fs.writeFileSync('', JSON.stringify(), (err) => {
+    const modified = filtered.map((el, index) => {return {id: index, value: el.value}});
+    fs.writeFileSync(`./storage/${name}.json`, JSON.stringify(modified), (err) => {
       if (err) throw err;
-    });*/
+    });
 
-    res.json(filtered);
+    res.json("Successful request");
   } catch (error) {
     console.log(error);
     res.status(400).json({ message: 'Error found' });
