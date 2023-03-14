@@ -1,5 +1,9 @@
 const fs = require('fs');
 const Author = require('./entities/authorEntity');
+const BookName = require('./entities/bookNameEntity');
+const Keyword = require('./entities/keywordEntity');
+const handlerNames = ["authors", "bookNames", "keywords"];
+const classes = [Author, BookName, Keyword];
 
 const deleteObject = (req, res) => {
   try {
@@ -12,7 +16,7 @@ const deleteObject = (req, res) => {
       if (err) throw err;
     });
 
-    res.json("Successful request");
+    res.json("Successful request")
   } catch (error) {
     console.log(error);
     res.status(400).json({ message: 'Error found' });
@@ -24,14 +28,20 @@ const addObject = (req, res) => {
     const { name } = req.params;
     const { value } = req.body;
     const objArray = require(`./storage/${name}.json`);
+    let newObject = {};
 
-    const newObject = new Author(objArray[objArray.length - 1].id + 1, value);
+    for(let i = 0; i < classes.length; i++) {
+      if(handlerNames[i] == name) {
+        newObject = new classes[i](objArray[objArray.length - 1].id + 1, value);
+        break;
+      }
+    }
     objArray.push(newObject);
     fs.writeFileSync(`./storage/${name}.json`, JSON.stringify(objArray), (err) => {
       if (err) throw err;
     });
 
-    res.json("Successful request");
+    res.json(newObject);
   } catch (error) {
     console.log(error);
     res.status(400).json({ message: 'Error found' });
