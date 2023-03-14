@@ -30,6 +30,7 @@ app.get('/keywords', (req, res) => {
   });
 })
 
+app.use(express.json());
 app.use('/entity', entityRouter);
 
 app.listen(port, () => {

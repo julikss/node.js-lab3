@@ -5,7 +5,8 @@
   <% for (var i = 0; i < entityArray.length; i++) { %>
     <div class="obj">
       <span><%= entityArray[i].value %></span>
-      <button onclick='deleteElement("<%= entityName %>","<%= entityArray[i].id %>")' class="delete-btn">Delete object</button>
+      <button onclick='deleteElement("<%= entityName %>","<%= entityArray[i].id %>")' class="btn">Delete object</button>
     </div>
   <% } %>
+  <button onclick='addElement("<%= entityName %>")' class="btn">Add object</button>
 </div>
