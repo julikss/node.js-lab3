@@ -3,12 +3,15 @@ const app = express();
 const port = 8000;
 const entityRouter = require('./entityRouter');
 const booksRouter = require('./booksRouter');
+const cors = require('cors');
 
 let authors = require('./storage/authors');
 let bookNames = require('./storage/bookNames');
 let keywords = require('./storage/keywords');
 
 app.set('view engine', 'ejs');
+
+app.use(cors())
 
 app.get('/authors', (req, res) => {
   res.render('authorEntity', {

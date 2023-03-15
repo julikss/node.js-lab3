@@ -6,10 +6,11 @@ const keywords = require('./storage/keywords.json');
 
 const addBook = (req, res) => {
   try {
-    const { value } = req.body;
+    const value = req.body;
     let title = bookNames.find(el => el.value == value.title);
     let author = authors.find(el => el.value == value.author);
     let keyword = keywords.find(el => el.value == value.keywords);
+
     if(title && author && keyword) {
       let newObject = {
         id: books.length > 0 ? books[books.length - 1].id + 1 : 0,
@@ -22,7 +23,7 @@ const addBook = (req, res) => {
       fs.writeFileSync('./storage/books.json', JSON.stringify(books), (err) => {
         if (err) throw err;
       });
-  
+
       res.json('Successful request');
     } else {
       res.json('Data was not found');
@@ -42,7 +43,17 @@ const deleteBook = () => {
   }
 }
 
+const allBooks = (req, res) => {
+  try {
+    res.json(books);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: 'Error found' });
+  }
+}
+
 module.exports = {
   addBook,
-  deleteBook
+  deleteBook,
+  allBooks
 }
