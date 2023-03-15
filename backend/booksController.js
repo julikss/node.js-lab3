@@ -7,16 +7,24 @@ const keywords = require('./storage/keywords.json');
 const addBook = (req, res) => {
   try {
     const value = req.body;
+    let enteredKeywords = value.keywords.toLowerCase().split(', ');
+
     let title = bookNames.find(el => el.value == value.title);
     let author = authors.find(el => el.value == value.author);
-    let keyword = keywords.find(el => el.value == value.keywords);
+    let keywordsArray = [];
 
-    if(title && author && keyword) {
+    for(let el of keywords) {
+      enteredKeywords.forEach(element => {
+        if(element == el.value) keywordsArray.push(el);
+      });
+    }
+
+    if(title && author && keywordsArray) {
       let newObject = {
         id: books.length > 0 ? books[books.length - 1].id + 1 : 0,
         title: title,
         author: author,
-        keywords: keyword
+        keywords: keywordsArray
       };
   
       books.push(newObject);
