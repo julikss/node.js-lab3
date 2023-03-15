@@ -1,0 +1,79 @@
+.guest-component {
+  background-color:white;
+  display:flex;
+  width: auto;
+  height: 100vh;
+}
+
+.link-block {
+  background-color:rgb(124, 213, 238);
+  border-right: 2px white;
+  display: grid;
+  width: 15%;
+}
+
+.link {
+  color: white;
+  text-align: center;
+  font-size: 22px;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: rgb(250, 247, 217);
+}
+
+.choice-block {
+  margin: auto;
+  display: grid;
+  row-gap: 10px;
+  width: 40%;
+  height: 30%;
+}
+
+.btn-choice {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 5px 10px 5px 10px;
+  border-spacing: 10px;
+  border-radius: 5px;
+  row-gap: 50px;
+  color: rgb(124, 213, 238);
+  transition: 0.2s all;
+  cursor: pointer;
+}
+
+.btn-choice:hover {
+  color: rgb(41, 163, 196);
+  font-size: 28px;
+}
+.inputbox {
+  display: block;
+  transition: 0.3s all;
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 1;
+  border-width: 4px;
+  border-style: solid;
+  border-color: rgb(124, 213, 238);
+  border-radius: 30px;
+  font-size: 18px;
+  padding: 10px;
+
+}
+
+.hide-inputbox1 {
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+.hide-inputbox2 {
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+.hide-inputbox3 {
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+}
