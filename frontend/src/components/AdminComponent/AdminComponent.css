@@ -1,0 +1,56 @@
+.admin-component {
+    background-color:rgb(238, 204, 233);
+    display:flex;
+    width: auto;
+    height: 100vh;
+}
+
+.link-block {
+    background-color:rgb(82, 51, 77);
+    border-right: 2px white;
+    display: grid;
+    width: 30%;
+}
+
+.link {
+    color: white;
+    text-align: center;
+    font-size: 22px;
+    text-decoration: none;
+}
+
+.link:hover {
+    color: rgb(250, 247, 217);
+}
+
+.info {
+    hyphens: auto;
+    color: white;
+    font-style: italic;
+    font-weight: lighter;
+    text-align: end;
+    margin: 15px;
+}
+
+.choice-block {
+    margin: auto;
+    display: grid;
+    row-gap: 10px;
+    width: 40%;
+    height: 30%;
+}
+
+.btn-choice {
+    font-size: 18px;
+    font-weight: bold;
+    border: 2px solid rgb(250, 247, 217);
+    padding: 5px 10px 5px 10px;
+    border-spacing: 10px;
+    border-radius: 5px;
+    background-color: white;
+    row-gap: 50px;
+}
+
+.btn-choice:hover {
+    color: rgb(134, 118, 206);
+}
