@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const port = 8000;
 const entityRouter = require('./entityRouter');
+const booksRouter = require('./booksRouter');
 
 let authors = require('./storage/authors');
 let bookNames = require('./storage/bookNames');
@@ -32,6 +33,7 @@ app.get('/keywords', (req, res) => {
 
 app.use(express.json());
 app.use('/entity', entityRouter);
+app.use('/books', booksRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`)
