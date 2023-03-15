@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router";
 import ModeComponent from "./ModeComponent";
-import AdminComponent from "./AdminComponent";
+import AdminComponent from "./AdminComponent/AdminComponent";
 import GuestComponent from "./GuestComponent";
 
 const MainComponent = () => {
