@@ -32,7 +32,7 @@ const addObject = (req, res) => {
 
     for(let i = 0; i < classes.length; i++) {
       if(handlerNames[i] == name) {
-        newObject = new classes[i](objArray[objArray.length - 1].id + 1, value);
+        newObject = new classes[i](objArray.length > 0 ? objArray[objArray.length - 1].id + 1 : 0, value);
         break;
       }
     }
@@ -41,7 +41,7 @@ const addObject = (req, res) => {
       if (err) throw err;
     });
 
-    res.json(newObject);
+    res.json('Successful request');
   } catch (error) {
     console.log(error);
     res.status(400).json({ message: 'Error found' });
