@@ -1,29 +1,34 @@
 import "./AdminComponent.css";
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const AdminComponent = () => {
-  const [visibility, setVisibility] = useState("hidden");
+  const [visibilityForm, setVisibilityForm] = useState("hidden");
+  const [visibilityBooks, setVisibilityBooks] = useState("hidden");
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [keywords, setKeywords] = useState("");
+  const [items, setItems] = useState([]);
 
-  const showBooksForm = () => {
-    if (visibility === "hidden") setVisibility("visible");
-    else setVisibility("hidden");
-  }
-
-  const handleChange = (e) => {
-    const {name, value} = e.target;
-    if (name === "title") setTitle(value);
-    else if (name === "author") setAuthor(value);
-    else setKeywords(value);
+  const showForm = (option) => {
+    console.log(option)
+    if (option === "add") {
+      if (visibilityForm === "hidden") {
+        setVisibilityBooks("hidden");
+        setVisibilityForm("visible");
+      } else setVisibilityForm("hidden");
+    } else if (option === "all") {
+      getBooksList();
+      if (visibilityBooks === "hidden") {
+        setVisibilityForm("hidden");
+        setVisibilityBooks("visible");
+      } else setVisibilityBooks("hidden");
+    }
   }
 
   const onSubmit = (e) => {
     e.preventDefault();
     const book = { title, author, keywords };
-    console.log(book);
     addBook(book);
   }
 
@@ -37,6 +42,62 @@ const AdminComponent = () => {
     })
   }
 
+  const getBooksList = async () => {
+    let response = await fetch("http://localhost:8000/books/allbooks")
+    .then(res => res.json());
+
+    let arrayOfBooks = [];
+    for (const el of response) {
+        arrayOfBooks.push({
+        id: el.id,
+        title: el.title.value,
+        author: el.author.value,
+        keywords: el.keywords.value
+      })
+    }
+
+    createBooksForm(arrayOfBooks);
+  }
+
+  const editBook = async (item, newKeywords) => {
+    item.keywords = newKeywords;
+
+    let response = await fetch(`http://localhost:8000/books/edit/${item.id}`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(item)
+    })
+
+    console.log(response)
+  }
+
+  const createBooksForm = (arr) => {
+    const arrOfItems = arr.map(item => {
+      const { id, title, author, keywords } = item;
+      let newKeywords = "";
+      return (
+        <li key={id} className="item-book">
+            <div className="title-section"><b>Title:</b> {title}</div>
+            <div className="title-section"><b>Author:</b> {author}</div>
+            <div className="title-section"><b>Keywords</b>: {keywords}</div>
+            <input name="newKeywords"
+                   type="text"
+                   placeholder={keywords}
+                   onChange={e => newKeywords = e.target.value} 
+                   className="input-edit"/>
+            <input type="submit" 
+                   value="Edit"
+                   onClick={() => editBook(item, newKeywords)}
+                   className="change-btn" />
+        </li>
+    )
+    })
+
+    setItems(arrOfItems);
+  }
+
   return(
     <div className="admin-component">
       <div className="link-block">
@@ -47,11 +108,11 @@ const AdminComponent = () => {
           or change information about them</h3>
       </div>
       <div className="choice-block" >
-        <button className="btn-choice" onClick={showBooksForm}>Add a new book</button>
-        <button className="btn-choice">Edit information</button>
+        <button className="btn-choice" onClick={() => showForm("add")}>Add a new book</button>
+        <button className="btn-choice" onClick={() => showForm("all")}>Edit information</button>
         <button className="btn-choice">Delete information</button>
 
-        <form style={{visibility:`${visibility}`}} 
+        <form style={{visibility:`${visibilityForm}`}} 
               className="add-form"
               onSubmit={onSubmit}>
         <label>
@@ -60,7 +121,7 @@ const AdminComponent = () => {
                  type="text" 
                  placeholder="Animal Farm"
                  value={title}
-                 onChange={handleChange}
+                 onChange={e => setTitle(e.target.value)}
                  className="input-field"/>
         </label>
         <label>
@@ -69,7 +130,7 @@ const AdminComponent = () => {
                  type="text"
                  placeholder="George Orwell"
                  value={author}
-                 onChange={handleChange} 
+                 onChange={e => setAuthor(e.target.value)} 
                  className="input-field"/>
         </label>
         <label>
@@ -78,13 +139,17 @@ const AdminComponent = () => {
                  type="text"  
                  placeholder="novella, satire, political, rebellion"
                  value={keywords}
-                 onChange={handleChange}
+                 onChange={e => setKeywords(e.target.value)}
                  className="input-field"/>
         </label>
         <input type="submit" 
                value="Add to the catalog" 
                className="btn-form"/>
       </form>
+      <div className="allbooks" style={{visibility:`${visibilityBooks}`}} >
+        <h4 className="allbooks-title">List of books</h4>
+        {items}
+      </div>
       </div>
       
     </div>
