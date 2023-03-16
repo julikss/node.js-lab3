@@ -57,8 +57,10 @@
   border-style: solid;
   border-color: rgb(124, 213, 238);
   border-radius: 30px;
-  font-size: 18px;
+  font-size: 24px;
   padding: 10px;
+  color: rgb(72, 85, 88);
+  font-weight: bold;
 
 }
 
