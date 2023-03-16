@@ -5,25 +5,25 @@
   height: 100vh;
 }
 
-.link-block {
+.guest-block {
   background-color:rgb(124, 213, 238);
   border-right: 2px white;
   display: grid;
   width: 15%;
 }
 
-.link {
+.guest-link {
   color: white;
   text-align: center;
   font-size: 22px;
   text-decoration: none;
 }
 
-.link:hover {
+.guest-link:hover {
   color: rgb(250, 247, 217);
 }
 
-.choice-block {
+.search-box {
   margin: auto;
   display: grid;
   row-gap: 10px;
@@ -31,7 +31,7 @@
   height: 30%;
 }
 
-.btn-choice {
+.btn-search {
   font-size: 24px;
   font-weight: bold;
   padding: 5px 10px 5px 10px;
@@ -43,7 +43,7 @@
   cursor: pointer;
 }
 
-.btn-choice:hover {
+.btn-search:hover {
   color: rgb(41, 163, 196);
   font-size: 28px;
 }
