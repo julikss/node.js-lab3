@@ -45,7 +45,7 @@ const addBook = (req, res) => {
 const deleteBook = (req, res) => {
   try {
     const { id } = req.params;
-
+    
     const filtered = books.filter(el => el.id != id);
 
     const modified = filtered.map((el, index) => {return {id: index, title: el.title, author: el.author, keywords: el.keywords}});
