@@ -98,7 +98,7 @@
 }
 
 .allbooks {
-    margin-top: -217px;
+    margin-top: -220px;
     row-gap: 10px;
     color: rgb(82, 51, 77);
     font-style: italic;
@@ -107,6 +107,23 @@
     border: 2px solid white;
     border-spacing: 10px;
     border-radius: 5px;
+}
+
+.delete {
+    margin-top: -300px;
+    margin-bottom: 50px;
+}
+
+.delete-field {
+    float: left;
+    margin-left: 20%;
+    margin-bottom: 20px;
+}
+
+.delete-btn {
+    width: 97%;
+    float: right;
+   
 }
 
 .allbooks-title {

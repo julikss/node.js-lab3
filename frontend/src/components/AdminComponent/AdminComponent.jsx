@@ -5,24 +5,36 @@ import { useEffect, useState } from "react";
 const AdminComponent = () => {
   const [visibilityForm, setVisibilityForm] = useState("hidden");
   const [visibilityBooks, setVisibilityBooks] = useState("hidden");
+  const [visibilityDelete, setVisibilityDelete] = useState("hidden");
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [keywords, setKeywords] = useState("");
   const [items, setItems] = useState([]);
-
+  const [titleToDelete, setTitleToDelete] = useState("");
+  const [books, setBooks] = useState([]);
+  
   const showForm = (option) => {
     console.log(option)
     if (option === "add") {
       if (visibilityForm === "hidden") {
+        setVisibilityDelete("hidden");
         setVisibilityBooks("hidden");
         setVisibilityForm("visible");
       } else setVisibilityForm("hidden");
     } else if (option === "all") {
       getBooksList();
       if (visibilityBooks === "hidden") {
+        setVisibilityDelete("hidden");
         setVisibilityForm("hidden");
         setVisibilityBooks("visible");
       } else setVisibilityBooks("hidden");
+    } else if (option === "del") {
+      getBooksList();
+      if (visibilityDelete === "hidden") {
+        setVisibilityDelete("visible");
+        setVisibilityForm("hidden");
+        setVisibilityBooks("hidden");
+      } else setVisibilityDelete("hidden");
     }
   }
 
@@ -55,8 +67,8 @@ const AdminComponent = () => {
         keywords: el.keywords.value
       })
     }
-
     createBooksForm(arrayOfBooks);
+    setBooks(arrayOfBooks);
   }
 
   const editBook = async (item, newKeywords) => {
@@ -70,7 +82,15 @@ const AdminComponent = () => {
       body: JSON.stringify(item)
     })
 
-    console.log(response)
+  }
+
+  const deleteBook = async (id) => {
+    let response = await fetch(`http://localhost:8000/books/delete/${id}`, {
+      method: "DELETE",
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      }
+    })
   }
 
   const createBooksForm = (arr) => {
@@ -110,7 +130,7 @@ const AdminComponent = () => {
       <div className="choice-block" >
         <button className="btn-choice" onClick={() => showForm("add")}>Add a new book</button>
         <button className="btn-choice" onClick={() => showForm("all")}>Edit information</button>
-        <button className="btn-choice">Delete information</button>
+        <button className="btn-choice" onClick={() => showForm("del")}>Delete information</button>
 
         <form style={{visibility:`${visibilityForm}`}} 
               className="add-form"
@@ -149,6 +169,27 @@ const AdminComponent = () => {
       <div className="allbooks" style={{visibility:`${visibilityBooks}`}} >
         <h4 className="allbooks-title">List of books</h4>
         {items}
+      </div>
+      <div className="allbooks delete" style={{visibility:`${visibilityDelete}`}} >
+        <h4 className="allbooks-title">Enter the title of the book:</h4>
+        <label>
+          <input name="titleToDelete"
+                 type="text"
+                 value={titleToDelete}
+                 onChange={e => setTitleToDelete(e.target.value)} 
+                 className="input-field delete-field"/>
+        </label>
+            <input type="submit" 
+                   value="Delete"
+                   onClick={() => {
+                    for (const el of books) {
+                      if (el.title === titleToDelete) {
+                        console.log(el.id)
+                        deleteBook(el.id);
+                      }
+                    }
+                  }}
+                   className="change-btn delete-btn" />
       </div>
       </div>
       
