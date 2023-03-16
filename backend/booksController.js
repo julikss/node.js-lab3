@@ -42,8 +42,49 @@ const addBook = (req, res) => {
   }
 }
 
-const deleteBook = () => {
+const deleteBook = (req, res) => {
   try {
+    const { id } = req.params;
+
+    const filtered = books.filter(el => el.id != id);
+
+    const modified = filtered.map((el, index) => {return {id: index, title: el.title, author: el.author, keywords: el.keywords}});
+    fs.writeFileSync('./storage/books.json', JSON.stringify(modified), (err) => {
+      if (err) throw err;
+    });
+
+    res.json('Successful request');
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: 'Error found' });
+  }
+}
+
+const editBook = (req, res) => {
+  try {
+    const { id } = req.params;
+    const value = req.body;
+    let enteredKeywords = value.keywords.toLowerCase().split(', ');
+    let keywordsArray = [];
+
+    for(let el of keywords) {
+      enteredKeywords.forEach(element => {
+        if(element == el.value) keywordsArray.push(el);
+      });
+    }
+
+    if(keywordsArray.length > 0) {
+      books[id].keywords = keywordsArray;
+  
+      fs.writeFileSync('./storage/books.json', JSON.stringify(books), (err) => {
+        if (err) throw err;
+      });
+
+      res.json('Successful request');
+    } else {
+      res.json('Data was not found');
+    }
+
     res.json('Successful request');
   } catch (error) {
     console.log(error);
@@ -63,5 +104,6 @@ const allBooks = (req, res) => {
 module.exports = {
   addBook,
   deleteBook,
+  editBook,
   allBooks
 }
